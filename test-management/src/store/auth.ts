@@ -1,0 +1,3 @@
+import {create} from 'zustand'; import type {User} from '../types';
+interface AuthState{token:string|null;user:User|null;setSession:(token:string,user:User)=>void;logout:()=>void}
+export const useAuth=create<AuthState>(set=>({token:localStorage.getItem('preproute_token'),user:JSON.parse(localStorage.getItem('preproute_user')||'null'),setSession:(token,user)=>{localStorage.setItem('preproute_token',token);localStorage.setItem('preproute_user',JSON.stringify(user));set({token,user});},logout:()=>{localStorage.removeItem('preproute_token');localStorage.removeItem('preproute_user');set({token:null,user:null});}}));
